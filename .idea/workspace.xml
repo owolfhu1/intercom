@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="75a4d394-692f-49b7-9e2d-1ba46b4232cd" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/orion/IntercomController.java" afterPath="$PROJECT_DIR$/src/main/java/com/orion/IntercomController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/templates/profile.html" afterPath="$PROJECT_DIR$/src/main/resources/templates/profile.html" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -39,13 +38,13 @@
           <file leaf-file-name="profile.html" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/main/resources/templates/profile.html">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="379">
-                  <caret line="47" column="124" lean-forward="false" selection-start-line="47" selection-start-column="124" selection-end-line="47" selection-end-column="124" />
+                <state relative-caret-position="246">
+                  <caret line="96" column="87" lean-forward="false" selection-start-line="96" selection-start-column="87" selection-end-line="96" selection-end-column="87" />
                   <folding>
                     <element signature="n#style#0;n#span#0;n#form#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#image#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#li#0;n#ul#0;n#span#0;n#form#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="e#4294#4301#1" expanded="true" />
+                    <element signature="e#4303#4310#1" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -897,12 +896,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1498268030753</updated>
-      <workItem from="1498268034472" duration="59801000" />
+      <workItem from="1498268034472" duration="61011000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="59801000" />
+    <option name="totallyTimeSpent" value="61011000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="265" y="17" width="1533" height="985" extended-state="0" />
@@ -1237,13 +1236,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/templates/profile.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="379">
-          <caret line="47" column="124" lean-forward="false" selection-start-line="47" selection-start-column="124" selection-end-line="47" selection-end-column="124" />
+        <state relative-caret-position="246">
+          <caret line="96" column="87" lean-forward="false" selection-start-line="96" selection-start-column="87" selection-end-line="96" selection-end-column="87" />
           <folding>
             <element signature="n#style#0;n#span#0;n#form#0;n#nav#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#image#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#li#0;n#ul#0;n#span#0;n#form#0;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="e#4294#4301#1" expanded="true" />
+            <element signature="e#4303#4310#1" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -214,6 +214,7 @@ public class IntercomController {
 
     @RequestMapping("/message")
     public String message(PrivateMessage privateMessage, BindingResult bindingResult, Model model) {
+        privateMessage.setTimeStamp(new Date());
         privateMessageRepository.save(privateMessage);
         User thisUser = userRepository.findOneByUserName(privateMessage.getSender());
         model.addAttribute("user", thisUser);
