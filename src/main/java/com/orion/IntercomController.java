@@ -192,6 +192,42 @@ public class IntercomController {
 
     }
 
+    @RequestMapping("/search")
+    public String search(User user, BindingResult bindingResult, Model model) {
+        User thisUser = userRepository.findOneByUserName(user.getStatus());
+        model.addAttribute("user", thisUser);
+        model.addAttribute("comment", new Comment());
+        model.addAttribute("post", new Post());
+        model.addAttribute("blankUser", new User());
+        if (userRepository.existsByUserName(user.getUserName())) {
+            User viewing = userRepository.findOneByUserName(user.getUserName());
+            viewing.setPassword("pass removed");
+            addPosts(model, viewing.getUserName());
+            model.addAttribute("viewing", viewing);
+            model.addAttribute("privateMessage", new PrivateMessage());
+            return "profile";
+        } else {
+            addPosts(model);
+            return "home";
+        }
+    }
+
+    @RequestMapping("/message")
+    public String message(PrivateMessage privateMessage, BindingResult bindingResult, Model model) {
+        privateMessageRepository.save(privateMessage);
+        User thisUser = userRepository.findOneByUserName(privateMessage.getSender());
+        model.addAttribute("user", thisUser);
+        model.addAttribute("comment", new Comment());
+        model.addAttribute("post", new Post());
+        model.addAttribute("blankUser", new User());
+        User viewing = userRepository.findOneByUserName(privateMessage.getRecipient());
+        viewing.setPassword("pass removed");
+        addPosts(model, viewing.getUserName());
+        model.addAttribute("viewing", viewing);
+        model.addAttribute("privateMessage", new PrivateMessage());
+        return "profile";
+    }
+
 
 
 /*             _______________________________

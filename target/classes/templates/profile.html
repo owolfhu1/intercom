@@ -15,11 +15,10 @@
 
 
 
-
 <!-- nav bar -->
 <nav class="navbar navbar-default">
     <form class="form-inline" th:action="@{/search}" th:object="${blankUser}" method="post">
-    <span style="font-size: large"><span th:text="${user.userName}">error</span>'s Intercom</span>
+        <span style="font-size: large"><span th:text="${user.userName}">error</span>'s Intercom</span>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -37,22 +36,13 @@
 <!-- side bar -->
 <div class="col-sm-3">
     <div class="well">
-        <image th:src="${user.image}" style="width: 100%;"></image>
+        <image th:src="${viewing.image}" style="width: 100%;"></image>
     </div>
 
     <div class="well">
-        <h1 th:text="${user.userName}">error</h1>
-        <h2 th:text="${user.status}">error</h2>
-        <button class="form-control" data-toggle="modal" data-target="#edit_modal" id="edit">Edit your profile</button>
-    </div>
-
-    <div class="well" >
-        <form th:action="@{/post}" th:object="${post}" method="post">
-            <input th:field="*{title}" type="text" class="form-control" placeholder="Title"/>
-            <textarea class="form-control" rows="3" th:field="*{body}" placeholder="Write your post here."></textarea>
-            <input type="hidden" name="userName" th:value="${user.userName}"/>
-            <input class="form-control" type="submit" value="Post it!"/>
-        </form>
+        <h1 th:text="${viewing.userName}">error</h1>
+        <h2 th:text="${viewing.status}">error</h2>
+        <button class="form-control" data-toggle="modal" data-target="#edit_modal" id="edit">Send a private message</button>
     </div>
 
 </div>
@@ -66,8 +56,6 @@
         <h1 th:text="${post.title}">error</h1>
         <p>By <b th:text="${post.userName}">error</b> on <span th:text="${post.timeStamp}">error</span></p>
         <p th:text="${post.body}">error</p>
-
-
         <div class="well">
             <form class="form-inline" th:action="@{/comment}" th:object="${comment}" method="post">
                 <!-- view comments -->
@@ -89,9 +77,7 @@
                 <input name="postId" type="hidden" th:value="${post.postId}"/>
                 <button type="submit" class="btn btn-primary">comment</button>
             </form>
-
         </div>
-
     </div>
 </div>
 <!-- main body area -->
@@ -105,34 +91,17 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Edit your profile here</h4>
+                <h4 class="modal-title">Send a message to <span th:text="${viewing.userName}">error</span></h4>
             </div>
             <div class="modal-body">
-                <!-- edit image -->
-                <div class="well">
-                    <form class="form-inline" th:action="@{/edit_image}" th:object="${blankUser}" method="post">
-                        <input th:field="*{image}" type="text" class="form-control" placeholder="Url of your image"/>
-                        <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}">username error</span>
-                        <input name="userName" type="hidden" th:value="${user.userName}"/>
-                        <input type="submit" value="Submit profile image" class="form-control"/>
-                    </form>
-                </div>
-                <!-- edit status -->
-                <div class="well">
-                    <form class="form-inline" th:action="@{/edit_status}" th:object="${blankUser}" method="post">
-                        <input th:field="*{status}" type="text" class="form-control" placeholder="Status"/>
-                        <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}">username error</span>
-                        <input name="userName" type="hidden" th:value="${user.userName}"/>
-                        <input type="submit" value="Submit profile status" class="form-control"/>
-                    </form>
-                </div>
-                <!-- edit password -->
-                <div class="well">
-                    <form class="form-inline" th:action="@{/edit_password}" th:object="${blankUser}" method="post">
-                        <input th:field="*{password}" type="password" class="form-control" placeholder="password"/>
-                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">username error</span>
-                        <input name="userName" type="hidden" th:value="${user.userName}"/>
-                        <input type="submit" value="Change your password" class="form-control"/>
+                <!-- send private message -->
+                <div class="well" >
+                    <form th:action="@{/message}" th:object="${privateMessage}" method="post">
+                        <input th:field="*{title}" type="text" class="form-control" placeholder="Title"/>
+                        <textarea class="form-control" rows="3" th:field="*{body}" placeholder="Write your message here."></textarea>
+                        <input type="hidden" name="sender" th:value="${user.userName}"/>
+                        <input type="hidden" name="recipient" th:value="${viewing.userName}"/>
+                        <input class="form-control" type="submit" value="send!"/>
                     </form>
                 </div>
             </div>
