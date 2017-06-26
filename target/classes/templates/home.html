@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <title id="title">Welcome</title>
+</head>
+<body>
+
+
+
+
+<!-- nav bar -->
+<nav class="navbar navbar-default">
+    <span style="font-size: large"><span th:text="${user.userName}">error</span>'s Intercom</span>
+</nav>
+<!-- nav bar-->
+
+
+
+<!-- side bar -->
+<div class="col-sm-3">
+    <div class="well">
+        <image th:src="${user.image}" style="width: 100%;"></image>
+    </div>
+
+    <div class="well">
+        <h1 th:text="${user.userName}">error</h1>
+        <h2 th:text="${user.status}">error</h2>
+        <button class="form-control" data-toggle="modal" data-target="#edit_modal" id="edit">Edit your profile</button>
+    </div>
+
+    <div class="well" >
+        <form th:action="@{/post}" th:object="${post}" method="post">
+            <input th:field="*{title}" type="text" class="form-control" placeholder="Title"/>
+            <textarea class="form-control" rows="3" th:field="*{body}" placeholder="Write your post here."></textarea>
+            <input type="hidden" name="userName" th:value="${user.userName}"/>
+            <input class="form-control" type="submit" value="Post it!"/>
+        </form>
+    </div>
+
+</div>
+<!-- side bar -->
+
+
+
+<!-- main body area -->
+<div class="col-sm-9" th:each="post: ${posts}">
+    <div class="well">
+        <h1 th:text="${post.title}">error</h1>
+        <p>By <b th:text="${post.userName}">error</b> on <span th:text="${post.timeStamp}">error</span></p>
+        <p th:text="${post.body}">error</p>
+
+
+        <div class="well">
+            <form class="form-inline" th:action="@{/comment}" th:object="${comment}" method="post">
+                <!-- view comments -->
+                <span class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">View Comments
+                <span class="badge" th:text="${post.numberOfComments()}">error</span><span class="caret"></span></button>
+                    <ul th:each="item: ${post.getComments()}" class="dropdown-menu">
+                        <li th:text="${item.toString()}" style="width: 600px;">error</li>
+                    </ul>
+                </span>
+                <!-- poke button -->
+                <a class="btn btn-primary" th:href="@{'/poke/' + ${post.postId}} + '/home/' + ${user.userName}">
+                    Pokes: <span class="badge" th:text="${post.pokes}">error</span> Click to poke
+                </a>
+                <!-- add comment -->
+                <input th:field="*{body}" type="text" class="form-control" placeholder="Write your comment here"/>
+                <span th:if="${#fields.hasErrors('body')}" th:errors="*{body}">username error</span>
+                <input name="sender" type="hidden" th:value="${user.userName}"/>
+                <input name="postId" type="hidden" th:value="${post.postId}"/>
+                <button type="submit" class="btn btn-primary">comment</button>
+            </form>
+
+        </div>
+
+    </div>
+</div>
+<!-- main body area -->
+
+
+
+
+<!-- edit modal -->
+<div class="modal fade" id="edit_modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Edit your profile here</h4>
+            </div>
+            <div class="modal-body">
+                <!-- edit image -->
+                <div class="well">
+                    <form class="form-inline" th:action="@{/edit_image}" th:object="${blankUser}" method="post">
+                        <input th:field="*{image}" type="text" class="form-control" placeholder="Url of your image"/>
+                        <span th:if="${#fields.hasErrors('image')}" th:errors="*{image}">username error</span>
+                        <input name="userName" type="hidden" th:value="${user.userName}"/>
+                        <input type="submit" value="Submit profile image" class="form-control"/>
+                    </form>
+                </div>
+                <!-- edit status -->
+                <div class="well">
+                    <form class="form-inline" th:action="@{/edit_status}" th:object="${blankUser}" method="post">
+                        <input th:field="*{status}" type="text" class="form-control" placeholder="Status"/>
+                        <span th:if="${#fields.hasErrors('status')}" th:errors="*{status}">username error</span>
+                        <input name="userName" type="hidden" th:value="${user.userName}"/>
+                        <input type="submit" value="Submit profile status" class="form-control"/>
+                    </form>
+                </div>
+                <!-- edit password -->
+                <div class="well">
+                    <form class="form-inline" th:action="@{/edit_password}" th:object="${blankUser}" method="post">
+                        <input th:field="*{password}" type="password" class="form-control" placeholder="password"/>
+                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">username error</span>
+                        <input name="userName" type="hidden" th:value="${user.userName}"/>
+                        <input type="submit" value="Change your password" class="form-control"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- edit modal -->
+
+
+
+
+
+</body>
+</html>

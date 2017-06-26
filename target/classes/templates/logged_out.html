@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <meta charset="UTF-8" />
+    <title id="title">Welcome</title>
+    <style>
+
+
+
+    </style>
+</head>
+<body>
+
+
+<!-- nav bar -->
+    <nav class="navbar navbar-default">
+        <form action="#" th:action="@{/guest_action}" th:object="${user}" method="post" class="form-inline" id="navform">
+            <span style="font-size: large">Orion's Intercom&nbsp;&nbsp;&nbsp;</span>
+            <div class="form-group">
+                <input th:field="*{userName}" type="text" class="form-control" placeholder="User Name"/>
+                <span th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}">username error</span>
+            </div>
+            <div class="form-group">
+                <input th:field="*{password}" type="password" class="form-control" placeholder="Password"/>
+                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</span>
+            </div>
+            <input th:field="*{status}" type="radio" name="action" value="register" id="register" /> <span>register</span>
+            <input th:field="*{status}" type="radio" name="action" value="login" id="login" /> <span>login</span>
+            <button type="submit" class="btn btn-default" id="navbutton">Log in!</button>
+        </form>
+
+    </nav>
+<!-- nav bar-->
+
+
+
+
+<!-- side bar -->
+    <div class="col-sm-3" style="height: 100%;">
+        <div class="well">
+            <span th:text="${message}">error message</span>
+        </div>
+    </div>
+<!-- side bar -->
+
+
+
+<!-- main body area -->
+<div class="col-sm-9" th:each="post: ${posts}">
+    <div class="well">
+        <h2 th:text="${post.title}">error</h2>
+        <p>By <b th:text="${post.userName}">error</b> on <span th:text="${post.timeStamp}">error</span></p>
+        <p th:text="${post.body}">error</p>
+        <div class="well">
+
+            <span class="dropdown">
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">View Comments
+            <span class="badge" th:text="${post.numberOfComments()}">error</span><span class="caret"></span></button>
+                <ul th:each="comment: ${post.comments}" class="dropdown-menu">
+                    <li th:text="${comment.toString()}" style="width: 600px;">error</li>
+                </ul>
+            </span>
+
+            <a class="btn btn-primary" th:href="@{'/poke/' + ${post.postId}} + '/logged_out/no_user'">
+                Pokes: <span class="badge" th:text="${post.pokes}">error</span> Click to poke
+            </a>
+
+        </div>
+    </div>
+</div>
+<!-- main body area -->
+
+
+
+<script>
+    //this script changes the reg/login button text
+    let login = document.getElementById('login');
+    login.checked = true;
+    let register = document.getElementById('register');
+    let button = document.getElementById('navbutton');
+    $("#navform").on("change", function() {
+        if (login.checked === true)
+            button.innerHTML = 'Log in!';
+        else if (register.checked === true)
+            button.innerHTML = 'Sign up!';
+    });
+</script>
+
+</body>
+</html>
